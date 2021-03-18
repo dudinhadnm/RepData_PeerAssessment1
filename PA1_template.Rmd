@@ -8,7 +8,7 @@ output:
 
 ## Loading and preprocessing the data
 For this project, the data was taken from the Reproducible Research course's Coursera web site. It was downloaded as a .zip file, which contained a .csv with the data. In order to load the data, the following code was used (assuming the .zip file was saved to the working directory).
-```{r import data, cache = T}
+```{r importdata, cache = T}
 ##unzip file
 unzip("activity.zip")
 
@@ -29,7 +29,7 @@ collumn (interval) brings the identification of the 5 minute interval.
 
 ## What is mean total number of steps taken per day?
 To calculate what is the mean total steps taken per day, firstly the sum of steps per day was calculated, and stored in a variable "totalStepsDay".
-```{r calculate total per day}
+```{r calculatetotalperday}
 ##total steps per day
 totalStepsDay <- tapply(activity$steps, activity$date, sum, simplify = T)
 totalStepsDay
@@ -37,13 +37,13 @@ totalStepsDay
 ```
 
 From this data, a histogram was created, showing the distribution of total steps per day.
-```{r create histogram of steps per day}
+```{r createhistogramofstepsperday}
 ## makes histogram of data
 hist(totalStepsDay, main = "Histogram of Total Steps per day", xlab = "Total steps per day")
 ```
 
 Finally the mean and median of the total steps per day were calculated:
-```{r calculate mean and median of total steps}
+```{r calculatemeanandmedianoftotalsteps}
 ## calculates mean of data (makes sense based on histogram)
 mean(totalStepsDay, na.rm = T)
 ##calculates median of data
@@ -54,7 +54,7 @@ median(totalStepsDay, na.rm = T)
 
 ## What is the average daily activity pattern?
 In order to calculate the average daily pattern, the average number of steps per interval was calculated (for each interval) using tapply(), and a plot was created showing the intervals in the x-axis and the average number of steps in each interval in the y-axis.
-```{r plot mean daily activity}
+```{r plotmeandailyactivity}
 ##calculate mean steps per interval
 meanStepsInterval <- tapply(activity$steps, activity$interval, mean, na.rm = T)
 ## make plot
@@ -63,7 +63,7 @@ plot(as.integer(levels(as.factor(activity$interval))), meanStepsInterval,
 ```
 
 In order to find the interval with the most average steps taken, the result of the tapply() was made a data frame, with the intervals in the first column and the mean steps in the second column. grep() was used to find the maximum value among the mean steps per interval values, and the value present in the first column (intervals) is shown below.
-```{r interval with max mean steps}
+```{r intervalwithmaxmeansteps}
 ##make data frame columns: interval, mean steps in interval, and get the row 
 ##that has the highest mean, take the interval info from there
 data.frame(cbind(as.integer(levels(as.factor(activity$interval))), 
@@ -75,7 +75,7 @@ With this, we know that the interval with the highest mean steps is the interval
 
 ## Imputing missing values
 Reported in the table below is the number of rows that contain NA values in the "TRUE" column. 
-```{r missing data}
+```{r missingdata}
 ##imputing missing values
 ## total number of missing values in the data set
 ## table counts the number of rows that are not complete (have NA values) in TRUE 
@@ -85,7 +85,7 @@ table(!complete.cases(activity))
 
 With this we know that there are a total of 2304 rows with missing values.  
 In order to deal with these, a choice was made to replace them with the mean number of steps corresponding to that particular 5 minute interval. A new data frame (filledActivity) was created equal to the original dataset, but with the missing data already replaced.
-```{r impute missing data, message=FALSE}
+```{r imputemissingdata, message=FALSE}
 ## replace missing values: mean for that 5-min interval will be used, and create
 ## new data set with the missing data filled in
 library(dplyr)
@@ -99,7 +99,7 @@ filledActivity <- activity %>%
 
 Following the missing value imputation, the total number of steps per day was once again calculated, this time without any missing values.  
 The following histogram shows the new distribution of total steps per day. The mean and median of the new dataset were also calculated.
-```{r histogram and mean median of non na data set}
+```{r histogramandmeanmedianofnonnadataset}
 ##total steps per day
 filledTotalStepsDay <- tapply(filledActivity$steps, filledActivity$date, sum, simplify = T)
 filledTotalStepsDay

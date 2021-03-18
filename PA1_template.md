@@ -76,7 +76,7 @@ From this data, a histogram was created, showing the distribution of total steps
 hist(totalStepsDay, main = "Histogram of Total Steps per day", xlab = "Total steps per day")
 ```
 
-![](PA1_template_files/figure-html/create histogram of steps per day-1.png)<!-- -->
+![](PA1_template_files/figure-html/createhistogramofstepsperday-1.png)<!-- -->
 
 Finally the mean and median of the total steps per day were calculated:
 
@@ -111,7 +111,7 @@ plot(as.integer(levels(as.factor(activity$interval))), meanStepsInterval,
      type = "l", main = "Average Daily Activity Pattern", xlab = "Interval", ylab = "Mean number of steps")
 ```
 
-![](PA1_template_files/figure-html/plot mean daily activity-1.png)<!-- -->
+![](PA1_template_files/figure-html/plotmeandailyactivity-1.png)<!-- -->
 
 In order to find the interval with the most average steps taken, the result of the tapply() was made a data frame, with the intervals in the first column and the mean steps in the second column. grep() was used to find the maximum value among the mean steps per interval values, and the value present in the first column (intervals) is shown below.
 
@@ -196,7 +196,7 @@ filledTotalStepsDay
 hist(filledTotalStepsDay, main = "Histogram of Total Steps per day (after missing data was imputed)", xlab = "Total steps per day")
 ```
 
-![](PA1_template_files/figure-html/histogram and mean median of non na data set-1.png)<!-- -->
+![](PA1_template_files/figure-html/histogramandmeanmedianofnonnadataset-1.png)<!-- -->
 
 ```r
 ## calculates mean of data (makes sense based on histogram)
